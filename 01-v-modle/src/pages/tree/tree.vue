@@ -29,7 +29,7 @@ export default class Tree extends Vue {
                     status:true,
                     children: [
                         {
-                            title: "标题1-2-1"
+                            title: "标题1-2-1",
                         },
                         {
                             title: "标题1-2-2"

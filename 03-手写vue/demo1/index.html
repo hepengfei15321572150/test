@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=s, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="./js/kvue.js"></script>
+    <script src="./js/compile.js"></script>
+    <script src="./js/dep.js"></script>
+    <script src="./js/watcher.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div>{{ text }}</div>
+        <div>{{a}}</div>
+    </div>
+
+    <script>
+        let vm = new Kvue({
+            el:'#app',
+            data:{
+                a:1,
+                // b:'hello',
+                text:'hi',
+                // c:{
+                //     c1:'我是ci'
+                // }
+            }
+        });  
+        
+        // console.log(vm.$data.a)
+        // vm.$data.a = '12';
+        // console.log(vm.$data.b)
+        // vm.$data.b = 'hello hehe';
+
+        console.log(vm.$data.text)
+        console.log(vm.$data.a)
+        setTimeout(() => {
+            vm.$data.text = '知道了';
+            vm.$data.a = '知道了222';
+            // console.log(vm.$data.a)
+        }, 1000);
+    </script>
+    
+</body>
+</html>

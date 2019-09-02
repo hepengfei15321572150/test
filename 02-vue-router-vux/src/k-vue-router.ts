@@ -15,8 +15,14 @@ class VueRouter {
 
         // 创建vue实例,为了动态响应路由的变化,地址栏变化的时候自动改变模板内容
         this.app = new Vue({
-            data: {
-                current: '/'
+            // data: {
+            //     current: "/"
+            // }
+
+            data() {
+                return {
+                    current: "/"
+                }
             }
         });
     }
@@ -37,35 +43,65 @@ class VueRouter {
 
     // 1. 监听地址变化
     public pathHashChange() {
-        window.addEventListener('hashchange',this.onHashChange)
+        window.addEventListener('hashchange', this.onHashChange.bind(this));
+        window.addEventListener('load', this.onHashChange.bind(this));
     }
-    public onHashChange(){
-        console.log(this.app)
+    public onHashChange() {
+        this.app.$data.current = window.location.hash.slice(1) || '/';
     }
-
 
     // 2. 路由映射关系
     public createRouterMap() {
-
+        this._options.routes.forEach((itemData: any) => {
+            this.routerMap[itemData.path] = itemData.component;
+        });
     }
+
     // 3. 全局组件
     public createComponent() {
+        const _this: any = this;
+        Vue.component('router-link', {
+            props: {
+                to: {
+                    type: String,
+                    required: true
+                }
+            },
+            render(h: any) {
+                // return <a href={ this.to }> { this.$slots.default } < /a>
+                const component = h('a', { attrs: { href: '#' + this.to } }, [this.$slots.default]);
+
+                return component;
+            }
+        });
+
+        Vue.component('router-view', {
+            render(h: any) {
+
+                const component = _this.routerMap[_this.app.$data.current];
+
+                if (component) {
+                    return h(component);
+                } else {
+                    return '';
+                }
+            }
+        });
 
     }
-
-
 }
 
 //  创建初始化方法,vue如果使用use方法注册,那么就必须在class上添加install方法.当use的时候会自动调用install方法
-VueRouter.install = function (_Vue: any) {
+VueRouter.install = (_Vue: any) => {
     Vue = _Vue;
 
     // 将代码混入,使每个组件中都可以使用 this.$router 
     Vue.mixin({
         beforeCreate: function () {
+
             if (this.$options.router) {
                 Vue.prototype.$router = this.$options.router;
-                console.log(this.$options)
+                console.log(22, this.$options)
 
                 // 
                 this.$options.router.init();

@@ -2,15 +2,22 @@ import Vue from 'vue';
 // import Router from 'vue-router';
 import Router from './k-vue-router';
 import Home from './views/Home.vue';
+import HomeChildren1 from './views/HomeChildren_1.vue';
 
 Vue.use(Router);
 
 export default new Router({
     routes: [
         {
-            path: '/',
+            path: '/home',
             name: 'home',
             component: Home,
+            children: [
+                {
+                    path: 'children1',
+                    component: HomeChildren1,
+                }
+            ]
         },
         {
             path: '/about',

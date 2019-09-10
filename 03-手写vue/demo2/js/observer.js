@@ -36,7 +36,7 @@ class Observer {
                 console.log(`${key} 数据被获取了`)
 
                 // 对数据进行收集
-                Dep.target && dep.addWatcher(Dep.target);
+                Dep.target && dep.addWatchers(Dep.target);
                 return value;
             },
             set(newVal) {

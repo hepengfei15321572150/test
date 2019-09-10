@@ -15,8 +15,9 @@
 <body>
     <div id="app">
         <div>{{name}}</div>
-        <div>{{age}}</div>
-        <div>{{name}}</div>
+
+        <div k-html="nameHtml" @click="fn"></div>
+        <!-- <div k-if="status">显示还是隐藏</div> -->
     </div>
 
     <script>
@@ -25,12 +26,24 @@
             data:{
                 name:'hehe',
                 name2:'我是hello',
-                age:12
+                age:12,
+                nameHtml:'<span style="color:red;">lalala</span>',
+                status:true
+            },
+            methods:{
+                fn(){
+                    this.$data.name = 'hihi'
+                    // console.log(this.$data.name)
+                }
             }
         });   
         
-        vm.$data.age
-        vm.$data.name = 'hi'
+        // vm.$data.age
+
+        setTimeout(()=>{
+            vm.$data.name = 'hihahaha';
+            // vm.$data.status = true;
+        },1000);
     </script>
 </body>
 </html>

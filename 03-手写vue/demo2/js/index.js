@@ -10,6 +10,7 @@ class SelfVue {
     constructor(_options) {
         this.$options = _options;
         this.$data = _options.data;
+        this.$methods = _options.methods;
 
         // 对数据进行改造,添加get和set方法
         new Observer(this.$data);
